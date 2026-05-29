@@ -6,7 +6,7 @@ import { Button, Card, Input, PasswordInput } from '../components/ui.jsx';
 import { useAuthStore } from '../store/authStore.js';
 
 const demoUsers = [
-  { label: 'Super Admin', email: 'superadmin@pulsehr.test', password: 'password123' },
+  // { label: 'Super Admin', email: 'superadmin@pulsehr.test', password: 'password123' },
   { label: 'Admin', email: 'admin@acme.test', password: 'password123' },
   { label: 'Employee', email: 'yogesh@inventive.in', password: 'password123' }
 ];
@@ -23,6 +23,8 @@ export default function Login() {
   const [email, setEmail] = useState('admin@acme.test');
   const [password, setPassword] = useState('password123');
   const [loading, setLoading] = useState(false);
+
+  console.log(`Demo users:, { label: 'Super Admin', email: 'superadmin@pulsehr.test', password: 'password123'`);
 
   const submit = async (event) => {
     event.preventDefault();

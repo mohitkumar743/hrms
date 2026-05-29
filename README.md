@@ -4,7 +4,7 @@ Production-style full-stack HRMS MVP for multi-tenant employee attendance, leave
 
 ## Structure
 
-- `backend` - Node.js, Express, JWT auth, Zod validation, JSON storage behind repository classes.
+- `backend` - Node.js, Express, JWT auth, Zod validation, PostgreSQL table-backed repository classes.
 - `frontend` - React, Vite, Tailwind CSS, React Router, Zustand, React Query, Recharts, Framer Motion-ready UI.
 
 ## Run
@@ -41,4 +41,6 @@ Routes are under `/api`:
 - `/settings`
 - `/reports`
 
-JSON file access is isolated in `backend/src/database/jsonDb.js` and repository classes in `backend/src/repositories`. API logic calls services, services call repositories, and controllers only handle HTTP input/output. A future PostgreSQL migration should replace repository implementations without changing route or controller logic.
+PostgreSQL access is isolated in `backend/src/database/postgresDb.js` and repository classes in `backend/src/repositories`. API logic calls services, services call repositories, and controllers only handle HTTP input/output.
+
+Run `npm run migrate:json` inside `backend` to copy existing seed JSON files, and any legacy `app_records` JSONB rows, into the normalized PostgreSQL tables.
