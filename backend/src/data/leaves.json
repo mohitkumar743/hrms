@@ -1,0 +1,20 @@
+[
+  {
+    "id": "lev_b179614b-a29d-4c32-acd8-19fb0cb579ab",
+    "companyId": "cmp_8115dfc9-5357-40e9-a99e-a4544f52b3f7",
+    "employeeId": "emp_c28fee15-2588-43d0-b7d6-3f4806e8b1ad",
+    "employeeName": "Pawan Pal",
+    "employeeCode": "0026",
+    "leaveType": "Unpaid Leave",
+    "dayType": "FULL_DAY",
+    "startDate": "2026-05-28",
+    "endDate": "2026-05-29",
+    "reason": "casully ",
+    "status": "REJECTED",
+    "createdAt": "2026-05-28T09:45:27.676Z",
+    "updatedAt": "2026-05-28T09:49:26.159Z",
+    "remark": "bhout kaam hai",
+    "decidedBy": "usr_c784cf05-bd89-473b-98e4-1191f9bfe834",
+    "decidedAt": "2026-05-28T09:49:26.158Z"
+  }
+]

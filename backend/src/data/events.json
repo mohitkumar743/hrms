@@ -1,0 +1,16 @@
+[
+  {
+    "id": "evt_b709b791-1109-40fb-9006-44acf6f24494",
+    "companyId": "cmp_8115dfc9-5357-40e9-a99e-a4544f52b3f7",
+    "title": "Hello Champaigns ",
+    "eventDate": "2026-05-29",
+    "startTime": "05:29",
+    "endTime": "05:30",
+    "lead": "Mohit kumar",
+    "expiryDate": "2026-05-30",
+    "isActive": true,
+    "createdBy": "usr_c784cf05-bd89-473b-98e4-1191f9bfe834",
+    "createdAt": "2026-05-27T11:59:43.141Z",
+    "updatedAt": "2026-05-27T11:59:43.141Z"
+  }
+]

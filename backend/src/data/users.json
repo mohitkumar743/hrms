@@ -1,0 +1,36 @@
+[
+  {
+    "id": "usr_c784cf05-bd89-473b-98e4-1191f9bfe834",
+    "companyId": "cmp_8115dfc9-5357-40e9-a99e-a4544f52b3f7",
+    "name": "Acme Admin",
+    "email": "admin@acme.test",
+    "passwordHash": "$2a$10$58DycoY2JvWUwBHxOwYYy.4ZJZ9Z.BRYtZAmATZcL4BQYmEAsFasi",
+    "role": "COMPANY_ADMIN",
+    "status": "ACTIVE",
+    "createdAt": "2026-05-26T10:40:48.807Z",
+    "updatedAt": "2026-05-26T10:40:48.807Z"
+  },
+  {
+    "id": "usr_5f06e0dc-d21b-4379-9d3e-ebe9d79e7750",
+    "companyId": "cmp_8115dfc9-5357-40e9-a99e-a4544f52b3f7",
+    "employeeId": "emp_c28fee15-2588-43d0-b7d6-3f4806e8b1ad",
+    "name": "Pawan Pal",
+    "email": "yogesh@inventive.in",
+    "passwordHash": "$2a$10$BlZBcyEni9K0BT9DXmKIoebgOvFNx2iYx6xfCxHiZwAJxbwFAOAQu",
+    "role": "EMPLOYEE",
+    "status": "ACTIVE",
+    "createdAt": "2026-05-26T10:46:37.173Z",
+    "updatedAt": "2026-05-27T10:41:15.653Z"
+  },
+  {
+    "id": "usr_f39edd4b-d4bc-42fe-af32-a712db7fe0bb",
+    "companyId": null,
+    "name": "PulseHR Super Admin",
+    "email": "superadmin@pulsehr.test",
+    "passwordHash": "$2a$10$sCPBwx2ZJbkLh70gdrVtGOgSps4BbNc46qpQEwtpN/rUCNeErEZr.",
+    "role": "SUPER_ADMIN",
+    "status": "ACTIVE",
+    "createdAt": "2026-05-26T11:10:45.955Z",
+    "updatedAt": "2026-05-26T11:10:45.955Z"
+  }
+]

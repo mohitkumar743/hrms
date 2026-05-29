@@ -1,0 +1,32 @@
+[
+  {
+    "id": "pay_34e6716b-1313-44e9-9b36-74e86a5c1cbc",
+    "companyId": "cmp_8115dfc9-5357-40e9-a99e-a4544f52b3f7",
+    "employeeId": "emp_c28fee15-2588-43d0-b7d6-3f4806e8b1ad",
+    "month": "2026-05",
+    "presentDays": 1,
+    "absentDays": 25,
+    "lateCount": 1,
+    "deductions": 0,
+    "overtimeAmount": 0,
+    "finalSalary": 0,
+    "locked": true,
+    "createdAt": "2026-05-26T10:48:00.893Z",
+    "updatedAt": "2026-05-26T10:48:08.210Z"
+  },
+  {
+    "id": "pay_a01bf700-6276-4f39-8940-811d3bf3a264",
+    "companyId": "cmp_8115dfc9-5357-40e9-a99e-a4544f52b3f7",
+    "employeeId": "emp_c28fee15-2588-43d0-b7d6-3f4806e8b1ad",
+    "month": "2026-06",
+    "presentDays": 0,
+    "absentDays": 26,
+    "lateCount": 0,
+    "deductions": 15000,
+    "overtimeAmount": 0,
+    "finalSalary": 0,
+    "locked": false,
+    "createdAt": "2026-05-28T08:47:22.979Z",
+    "updatedAt": "2026-05-28T08:47:22.979Z"
+  }
+]

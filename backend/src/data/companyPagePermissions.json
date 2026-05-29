@@ -1,0 +1,23 @@
+[
+  {
+    "id": "perm_f172ed65-c725-4abb-8150-9fec5c1394a0",
+    "companyId": "cmp_8115dfc9-5357-40e9-a99e-a4544f52b3f7",
+    "pageIds": [
+      "page_dashboard",
+      "page_employees",
+      "page_employee_add",
+      "page_employee_view",
+      "page_attendance",
+      "page_leaves",
+      "page_notices",
+      "page_events",
+      "page_qr_scanner",
+      "page_payroll",
+      "page_settings",
+      "page_reports",
+      "page_activity_report"
+    ],
+    "createdAt": "2026-05-27T09:40:23.785Z",
+    "updatedAt": "2026-05-27T09:40:23.785Z"
+  }
+]

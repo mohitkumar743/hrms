@@ -1,0 +1,414 @@
+[
+  {
+    "id": "act_144535cc-6784-485a-9105-d3e3209a59b6",
+    "companyId": "cmp_8115dfc9-5357-40e9-a99e-a4544f52b3f7",
+    "userId": "usr_c784cf05-bd89-473b-98e4-1191f9bfe834",
+    "employeeId": null,
+    "userName": "Acme Admin",
+    "userEmail": "admin@acme.test",
+    "role": "COMPANY_ADMIN",
+    "action": "PAGE_VIEW",
+    "resource": "page",
+    "resourceId": null,
+    "description": "Viewed Dashboard",
+    "metadata": {
+      "path": "/",
+      "title": "Dashboard"
+    },
+    "date": "2026-05-27",
+    "time": "18:09:51",
+    "createdAt": "2026-05-27T12:39:51.807Z",
+    "updatedAt": "2026-05-27T12:39:51.807Z"
+  },
+  {
+    "id": "act_9c1a1ff4-7593-4a9a-8a17-13bfaf38922a",
+    "companyId": "cmp_8115dfc9-5357-40e9-a99e-a4544f52b3f7",
+    "userId": "usr_5f06e0dc-d21b-4379-9d3e-ebe9d79e7750",
+    "employeeId": "emp_c28fee15-2588-43d0-b7d6-3f4806e8b1ad",
+    "userName": "Pawan Pal",
+    "userEmail": "yogesh@inventive.in",
+    "role": "EMPLOYEE",
+    "action": "PAGE_VIEW",
+    "resource": "page",
+    "resourceId": null,
+    "description": "Viewed Dashboard",
+    "metadata": {
+      "path": "/",
+      "title": "Dashboard"
+    },
+    "date": "2026-05-27",
+    "time": "18:09:51",
+    "createdAt": "2026-05-27T12:39:51.829Z",
+    "updatedAt": "2026-05-27T12:39:51.829Z"
+  },
+  {
+    "id": "act_0ddbb0fd-d790-46b6-a2d0-16861f060e1b",
+    "companyId": "cmp_8115dfc9-5357-40e9-a99e-a4544f52b3f7",
+    "userId": "usr_5f06e0dc-d21b-4379-9d3e-ebe9d79e7750",
+    "employeeId": "emp_c28fee15-2588-43d0-b7d6-3f4806e8b1ad",
+    "userName": "Pawan Pal",
+    "userEmail": "yogesh@inventive.in",
+    "role": "EMPLOYEE",
+    "action": "PAGE_VIEW",
+    "resource": "page",
+    "resourceId": null,
+    "description": "Viewed Dashboard",
+    "metadata": {
+      "path": "/",
+      "title": "Dashboard"
+    },
+    "date": "2026-05-27",
+    "time": "18:10:07",
+    "createdAt": "2026-05-27T12:40:07.435Z",
+    "updatedAt": "2026-05-27T12:40:07.435Z"
+  },
+  {
+    "id": "act_613b9ada-55e7-4bda-90d1-98a574a18152",
+    "companyId": "cmp_8115dfc9-5357-40e9-a99e-a4544f52b3f7",
+    "userId": "usr_c784cf05-bd89-473b-98e4-1191f9bfe834",
+    "employeeId": null,
+    "userName": "Acme Admin",
+    "userEmail": "admin@acme.test",
+    "role": "COMPANY_ADMIN",
+    "action": "PAGE_VIEW",
+    "resource": "page",
+    "resourceId": null,
+    "description": "Viewed Dashboard",
+    "metadata": {
+      "path": "/",
+      "title": "Dashboard"
+    },
+    "date": "2026-05-27",
+    "time": "18:10:07",
+    "createdAt": "2026-05-27T12:40:07.440Z",
+    "updatedAt": "2026-05-27T12:40:07.440Z"
+  },
+  {
+    "id": "act_6fc4ca20-adc0-4f18-8374-dacceedab96e",
+    "companyId": "cmp_8115dfc9-5357-40e9-a99e-a4544f52b3f7",
+    "userId": "usr_c784cf05-bd89-473b-98e4-1191f9bfe834",
+    "employeeId": null,
+    "userName": "Acme Admin",
+    "userEmail": "admin@acme.test",
+    "role": "COMPANY_ADMIN",
+    "action": "LOGIN",
+    "resource": "auth",
+    "resourceId": null,
+    "description": "Logged in",
+    "metadata": {
+      "email": "admin@acme.test"
+    },
+    "date": "2026-05-27",
+    "time": "18:11:53",
+    "createdAt": "2026-05-27T12:41:53.658Z",
+    "updatedAt": "2026-05-27T12:41:53.658Z"
+  },
+  {
+    "id": "act_e9007bc8-9ff5-47dd-a30e-32422bd87d3a",
+    "companyId": "cmp_8115dfc9-5357-40e9-a99e-a4544f52b3f7",
+    "userId": "usr_c784cf05-bd89-473b-98e4-1191f9bfe834",
+    "employeeId": null,
+    "userName": "Acme Admin",
+    "userEmail": "admin@acme.test",
+    "role": "COMPANY_ADMIN",
+    "action": "LOGIN",
+    "resource": "auth",
+    "resourceId": null,
+    "description": "Logged in",
+    "metadata": {
+      "email": "admin@acme.test"
+    },
+    "date": "2026-05-27",
+    "time": "18:12:14",
+    "createdAt": "2026-05-27T12:42:14.548Z",
+    "updatedAt": "2026-05-27T12:42:14.548Z"
+  },
+  {
+    "id": "act_112bbb5a-a795-4b4e-a95a-8f4ff86b924a",
+    "companyId": "cmp_8115dfc9-5357-40e9-a99e-a4544f52b3f7",
+    "userId": "usr_c784cf05-bd89-473b-98e4-1191f9bfe834",
+    "employeeId": null,
+    "userName": "Acme Admin",
+    "userEmail": "admin@acme.test",
+    "role": "COMPANY_ADMIN",
+    "action": "LOGIN",
+    "resource": "auth",
+    "resourceId": null,
+    "description": "Logged in",
+    "metadata": {
+      "email": "admin@acme.test"
+    },
+    "date": "2026-05-27",
+    "time": "18:13:00",
+    "createdAt": "2026-05-27T12:43:00.310Z",
+    "updatedAt": "2026-05-27T12:43:00.310Z"
+  },
+  {
+    "id": "act_bc0ce3d7-690c-4b70-abc1-222bb57df107",
+    "companyId": "cmp_8115dfc9-5357-40e9-a99e-a4544f52b3f7",
+    "userId": "usr_c784cf05-bd89-473b-98e4-1191f9bfe834",
+    "employeeId": null,
+    "userName": "Acme Admin",
+    "userEmail": "admin@acme.test",
+    "role": "COMPANY_ADMIN",
+    "action": "PAGE_VIEW",
+    "resource": "page",
+    "resourceId": null,
+    "description": "Viewed Dashboard",
+    "metadata": {
+      "path": "/",
+      "title": "Dashboard"
+    },
+    "date": "2026-05-27",
+    "time": "18:13:00",
+    "createdAt": "2026-05-27T12:43:00.392Z",
+    "updatedAt": "2026-05-27T12:43:00.392Z"
+  },
+  {
+    "id": "act_e3de717e-3937-41c3-9189-adf01d1e11d9",
+    "companyId": "cmp_8115dfc9-5357-40e9-a99e-a4544f52b3f7",
+    "userId": "usr_c784cf05-bd89-473b-98e4-1191f9bfe834",
+    "employeeId": null,
+    "userName": "Acme Admin",
+    "userEmail": "admin@acme.test",
+    "role": "COMPANY_ADMIN",
+    "action": "PAGE_VIEW",
+    "resource": "page",
+    "resourceId": null,
+    "description": "Viewed Dashboard",
+    "metadata": {
+      "path": "/",
+      "title": "Dashboard"
+    },
+    "date": "2026-05-27",
+    "time": "18:13:00",
+    "createdAt": "2026-05-27T12:43:00.670Z",
+    "updatedAt": "2026-05-27T12:43:00.670Z"
+  },
+  {
+    "id": "act_12daff3a-1c62-4217-9406-bbce7818424c",
+    "companyId": "cmp_8115dfc9-5357-40e9-a99e-a4544f52b3f7",
+    "userId": "usr_c784cf05-bd89-473b-98e4-1191f9bfe834",
+    "employeeId": null,
+    "userName": "Acme Admin",
+    "userEmail": "admin@acme.test",
+    "role": "COMPANY_ADMIN",
+    "action": "PAGE_VIEW",
+    "resource": "page",
+    "resourceId": null,
+    "description": "Viewed Activity Report",
+    "metadata": {
+      "path": "/activity-report",
+      "title": "Activity Report"
+    },
+    "date": "2026-05-27",
+    "time": "18:13:01",
+    "createdAt": "2026-05-27T12:43:01.889Z",
+    "updatedAt": "2026-05-27T12:43:01.889Z"
+  },
+  {
+    "id": "act_fb26244b-06a8-492d-a2ce-fe28586fa2f1",
+    "companyId": "cmp_8115dfc9-5357-40e9-a99e-a4544f52b3f7",
+    "userId": "usr_5f06e0dc-d21b-4379-9d3e-ebe9d79e7750",
+    "employeeId": "emp_c28fee15-2588-43d0-b7d6-3f4806e8b1ad",
+    "userName": "Pawan Pal",
+    "userEmail": "yogesh@inventive.in",
+    "role": "EMPLOYEE",
+    "action": "POST",
+    "resource": "own attendance",
+    "resourceId": null,
+    "description": "Created own attendance",
+    "metadata": {
+      "path": "/api/attendance/self-punch",
+      "body": {
+        "type": "CHECK_OUT"
+      }
+    },
+    "date": "2026-05-27",
+    "time": "18:13:20",
+    "createdAt": "2026-05-27T12:43:20.917Z",
+    "updatedAt": "2026-05-27T12:43:20.917Z"
+  },
+  {
+    "id": "act_3488c16f-5f18-4c5f-b76b-1c7743dd918c",
+    "companyId": "cmp_8115dfc9-5357-40e9-a99e-a4544f52b3f7",
+    "userId": "usr_c784cf05-bd89-473b-98e4-1191f9bfe834",
+    "employeeId": null,
+    "userName": "Acme Admin",
+    "userEmail": "admin@acme.test",
+    "role": "COMPANY_ADMIN",
+    "action": "PAGE_VIEW",
+    "resource": "page",
+    "resourceId": null,
+    "description": "Viewed /activity-report",
+    "metadata": {
+      "path": "/activity-report",
+      "title": "/activity-report"
+    },
+    "date": "2026-05-27",
+    "time": "18:13:25",
+    "createdAt": "2026-05-27T12:43:25.950Z",
+    "updatedAt": "2026-05-27T12:43:25.950Z"
+  },
+  {
+    "id": "act_c5ceb44d-f468-41b3-a7b9-ceb2dd6c2583",
+    "companyId": "cmp_8115dfc9-5357-40e9-a99e-a4544f52b3f7",
+    "userId": "usr_c784cf05-bd89-473b-98e4-1191f9bfe834",
+    "employeeId": null,
+    "userName": "Acme Admin",
+    "userEmail": "admin@acme.test",
+    "role": "COMPANY_ADMIN",
+    "action": "PAGE_VIEW",
+    "resource": "page",
+    "resourceId": null,
+    "description": "Viewed Activity Report",
+    "metadata": {
+      "path": "/activity-report",
+      "title": "Activity Report"
+    },
+    "date": "2026-05-27",
+    "time": "18:13:26",
+    "createdAt": "2026-05-27T12:43:26.009Z",
+    "updatedAt": "2026-05-27T12:43:26.009Z"
+  },
+  {
+    "id": "act_48efc4e0-200a-44c7-890a-045394020d21",
+    "companyId": "cmp_8115dfc9-5357-40e9-a99e-a4544f52b3f7",
+    "userId": "usr_c784cf05-bd89-473b-98e4-1191f9bfe834",
+    "employeeId": null,
+    "userName": "Acme Admin",
+    "userEmail": "admin@acme.test",
+    "role": "COMPANY_ADMIN",
+    "action": "PAGE_VIEW",
+    "resource": "page",
+    "resourceId": null,
+    "description": "Viewed Attendance",
+    "metadata": {
+      "path": "/attendance",
+      "title": "Attendance"
+    },
+    "date": "2026-05-27",
+    "time": "18:13:41",
+    "createdAt": "2026-05-27T12:43:41.896Z",
+    "updatedAt": "2026-05-27T12:43:41.896Z"
+  },
+  {
+    "id": "act_677992eb-a01a-400c-89a3-ebdfc7ca8ea4",
+    "companyId": "cmp_8115dfc9-5357-40e9-a99e-a4544f52b3f7",
+    "userId": "usr_c784cf05-bd89-473b-98e4-1191f9bfe834",
+    "employeeId": null,
+    "userName": "Acme Admin",
+    "userEmail": "admin@acme.test",
+    "role": "COMPANY_ADMIN",
+    "action": "DELETE",
+    "resource": "attendance record",
+    "resourceId": "att_7e0d8d35-3069-426d-9454-be09038983b0",
+    "description": "Deleted attendance record",
+    "metadata": {
+      "path": "/api/attendance/att_7e0d8d35-3069-426d-9454-be09038983b0",
+      "body": {}
+    },
+    "date": "2026-05-27",
+    "time": "18:13:45",
+    "createdAt": "2026-05-27T12:43:45.347Z",
+    "updatedAt": "2026-05-27T12:43:45.347Z"
+  },
+  {
+    "id": "act_91a4c94e-4c19-43d4-b6fe-3beddf495f8b",
+    "companyId": "cmp_8115dfc9-5357-40e9-a99e-a4544f52b3f7",
+    "userId": "usr_c784cf05-bd89-473b-98e4-1191f9bfe834",
+    "employeeId": null,
+    "userName": "Acme Admin",
+    "userEmail": "admin@acme.test",
+    "role": "COMPANY_ADMIN",
+    "action": "PAGE_VIEW",
+    "resource": "page",
+    "resourceId": null,
+    "description": "Viewed Activity Report",
+    "metadata": {
+      "path": "/activity-report",
+      "title": "Activity Report"
+    },
+    "date": "2026-05-27",
+    "time": "18:13:47",
+    "createdAt": "2026-05-27T12:43:47.464Z",
+    "updatedAt": "2026-05-27T12:43:47.464Z"
+  },
+  {
+    "id": "act_cd96c24c-a0e0-4ceb-8ad1-1d1635495f18",
+    "companyId": "cmp_8115dfc9-5357-40e9-a99e-a4544f52b3f7",
+    "userId": "usr_c784cf05-bd89-473b-98e4-1191f9bfe834",
+    "employeeId": null,
+    "userName": "Acme Admin",
+    "userEmail": "admin@acme.test",
+    "role": "COMPANY_ADMIN",
+    "action": "PAGE_VIEW",
+    "resource": "page",
+    "resourceId": null,
+    "description": "Viewed /activity-report",
+    "metadata": {
+      "path": "/activity-report",
+      "title": "/activity-report"
+    },
+    "date": "2026-05-27",
+    "time": "18:13:51",
+    "createdAt": "2026-05-27T12:43:51.975Z",
+    "updatedAt": "2026-05-27T12:43:51.975Z"
+  },
+  {
+    "id": "act_5dd42c20-76ea-4dc6-81e3-1a06914c01a8",
+    "companyId": "cmp_8115dfc9-5357-40e9-a99e-a4544f52b3f7",
+    "userId": "usr_c784cf05-bd89-473b-98e4-1191f9bfe834",
+    "employeeId": null,
+    "userName": "Acme Admin",
+    "userEmail": "admin@acme.test",
+    "role": "COMPANY_ADMIN",
+    "action": "PAGE_VIEW",
+    "resource": "page",
+    "resourceId": null,
+    "description": "Viewed Activity Report",
+    "metadata": {
+      "path": "/activity-report",
+      "title": "Activity Report"
+    },
+    "date": "2026-05-27",
+    "time": "18:13:52",
+    "createdAt": "2026-05-27T12:43:52.046Z",
+    "updatedAt": "2026-05-27T12:43:52.046Z"
+  },
+  {
+    "id": "act_2519d590-c683-4787-9baf-04b15775c251",
+    "companyId": "cmp_8115dfc9-5357-40e9-a99e-a4544f52b3f7",
+    "userId": "usr_c784cf05-bd89-473b-98e4-1191f9bfe834",
+    "employeeId": null,
+    "userName": "Acme Admin",
+    "userEmail": "admin@acme.test",
+    "role": "COMPANY_ADMIN",
+    "action": "DELETE",
+    "resource": "notice",
+    "resourceId": "ntc_2750e0c2-1f63-41de-a8a5-a820e1f899f9",
+    "description": "Deleted notice",
+    "metadata": {
+      "path": "/api/notices/ntc_2750e0c2-1f63-41de-a8a5-a820e1f899f9",
+      "body": {},
+      "deletedRecord": {
+        "id": "ntc_2750e0c2-1f63-41de-a8a5-a820e1f899f9",
+        "companyId": "cmp_8115dfc9-5357-40e9-a99e-a4544f52b3f7",
+        "title": "Soft delete audit test",
+        "message": "Temporary notice for audit verification",
+        "expiryDate": null,
+        "isActive": true,
+        "createdBy": "usr_c784cf05-bd89-473b-98e4-1191f9bfe834",
+        "createdAt": "2026-05-27T12:50:05.351Z",
+        "updatedAt": "2026-05-27T12:50:05.368Z",
+        "isDeleted": true,
+        "deletedAt": "2026-05-27T12:50:05.368Z",
+        "deletedBy": "usr_c784cf05-bd89-473b-98e4-1191f9bfe834"
+      }
+    },
+    "date": "2026-05-27",
+    "time": "18:20:05",
+    "createdAt": "2026-05-27T12:50:05.390Z",
+    "updatedAt": "2026-05-27T12:50:05.390Z"
+  }
+]

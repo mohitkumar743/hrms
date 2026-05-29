@@ -1,0 +1,44 @@
+[
+  {
+    "id": "att_33323223-087e-422e-b98b-1daeeb9d1df2",
+    "companyId": "cmp_8115dfc9-5357-40e9-a99e-a4544f52b3f7",
+    "employeeId": "emp_c28fee15-2588-43d0-b7d6-3f4806e8b1ad",
+    "date": "2026-05-26",
+    "checkInTime": "2026-05-26T10:47:49.658Z",
+    "checkOutTime": "2026-05-26T15:29:00.000Z",
+    "status": "LATE",
+    "lateMinutes": 397,
+    "overtimeMinutes": 0,
+    "attendanceMethod": "QR",
+    "createdAt": "2026-05-26T10:47:49.662Z",
+    "updatedAt": "2026-05-27T10:53:40.726Z"
+  },
+  {
+    "id": "att_54f4fd0d-cfd0-4c66-a0ef-17462fb32510",
+    "companyId": "cmp_8115dfc9-5357-40e9-a99e-a4544f52b3f7",
+    "employeeId": "emp_c28fee15-2588-43d0-b7d6-3f4806e8b1ad",
+    "date": "2026-05-27",
+    "checkInTime": "2026-05-27T13:03:11.689Z",
+    "checkOutTime": "2026-05-27T13:03:16.279Z",
+    "status": "LATE",
+    "lateMinutes": 533,
+    "overtimeMinutes": 0,
+    "attendanceMethod": "SELF",
+    "createdAt": "2026-05-27T13:03:11.693Z",
+    "updatedAt": "2026-05-27T13:03:16.282Z"
+  },
+  {
+    "id": "att_7749ba31-7ce4-4656-85d1-2dcff5d07617",
+    "companyId": "cmp_8115dfc9-5357-40e9-a99e-a4544f52b3f7",
+    "employeeId": "emp_c28fee15-2588-43d0-b7d6-3f4806e8b1ad",
+    "date": "2026-05-28",
+    "checkInTime": "2026-05-28T08:49:02.855Z",
+    "checkOutTime": null,
+    "status": "LATE",
+    "lateMinutes": 279,
+    "overtimeMinutes": 0,
+    "attendanceMethod": "SELF",
+    "createdAt": "2026-05-28T08:49:02.858Z",
+    "updatedAt": "2026-05-28T08:49:02.858Z"
+  }
+]

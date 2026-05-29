@@ -1,0 +1,27 @@
+[
+  {
+    "id": "ntc_8c4e7e92-8ec5-48c1-9168-c84a1a08fb71",
+    "companyId": "cmp_8115dfc9-5357-40e9-a99e-a4544f52b3f7",
+    "title": "Dewali celebration",
+    "message": "Dewali celebration on 25 Dec 2026",
+    "expiryDate": "2026-06-19",
+    "isActive": true,
+    "createdBy": "usr_c784cf05-bd89-473b-98e4-1191f9bfe834",
+    "createdAt": "2026-05-27T12:00:38.091Z",
+    "updatedAt": "2026-05-27T12:00:38.091Z"
+  },
+  {
+    "id": "ntc_2750e0c2-1f63-41de-a8a5-a820e1f899f9",
+    "companyId": "cmp_8115dfc9-5357-40e9-a99e-a4544f52b3f7",
+    "title": "Soft delete audit test",
+    "message": "Temporary notice for audit verification",
+    "expiryDate": null,
+    "isActive": true,
+    "createdBy": "usr_c784cf05-bd89-473b-98e4-1191f9bfe834",
+    "createdAt": "2026-05-27T12:50:05.351Z",
+    "updatedAt": "2026-05-27T12:50:05.368Z",
+    "isDeleted": true,
+    "deletedAt": "2026-05-27T12:50:05.368Z",
+    "deletedBy": "usr_c784cf05-bd89-473b-98e4-1191f9bfe834"
+  }
+]
