@@ -98,7 +98,10 @@ export function getPool() {
 
   if (!pool) {
     pool = new Pool({
-      connectionString: getConnectionString()
+      connectionString: getConnectionString(),
+      max: Number(process.env.PG_POOL_MAX || 1),
+      idleTimeoutMillis: 30000,
+      connectionTimeoutMillis: 10000
     });
   }
 

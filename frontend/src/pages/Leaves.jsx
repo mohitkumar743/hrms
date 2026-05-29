@@ -106,6 +106,7 @@ export default function Leaves() {
       toast.success('Leave request submitted');
       setForm(emptyForm);
       client.invalidateQueries('leaves');
+      client.invalidateQueries('header-leaves');
       client.invalidateQueries('reports');
     },
     onError: (error) => toast.error(error.response?.data?.message || 'Failed to apply leave')
@@ -117,6 +118,7 @@ export default function Leaves() {
       setDecision(null);
       setDecisionRemark('');
       client.invalidateQueries('leaves');
+      client.invalidateQueries('header-leaves');
       client.invalidateQueries('reports');
     },
     onError: (error) => toast.error(error.response?.data?.message || 'Failed to update leave')

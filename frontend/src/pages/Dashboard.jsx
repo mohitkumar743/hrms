@@ -19,6 +19,25 @@ const stats = [
   { label: 'Departments', value: '08', helper: '3 Locations Active', trend: 'Live', icon: GraduationCap, tone: 'bg-[#a61ced]', card: 'from-[#fff3ff] via-[#f8ddff] to-[#edc2ff]' }
 ];
 
+const demoChartRows = [
+  { name: 'Jan', headcount: 142, joined: 6 },
+  { name: 'Feb', headcount: 148, joined: 8 },
+  { name: 'Mar', headcount: 155, joined: 10 },
+  { name: 'Apr', headcount: 162, joined: 7 },
+  { name: 'May', headcount: 168, joined: 9 },
+  { name: 'Jun', headcount: 171, joined: 5 },
+  { name: 'Jul', headcount: 176, joined: 6 },
+  { name: 'Aug', headcount: 181, joined: 8 },
+  { name: 'Sep', headcount: 186, joined: 7 },
+  { name: 'Oct', headcount: 190, joined: 6 },
+  { name: 'Nov', headcount: 194, joined: 5 },
+  { name: 'Dec', headcount: 201, joined: 9 }
+];
+
+function DemoBadge() {
+  return <span className="shrink-0 rounded bg-amber-100 px-1.5 py-0.5 text-[10px] font-extrabold text-amber-700">DEMO</span>;
+}
+
 function EduStatCard({ item }) {
   const Icon = item.icon;
   return (
@@ -28,6 +47,7 @@ function EduStatCard({ item }) {
           <Icon size={19} />
         </div>
         <p className="text-[13px] font-bold text-slate-950">{item.label}</p>
+        {item.demo && <DemoBadge />}
       </div>
       <p className="mt-6 text-[22px] font-extrabold leading-none text-slate-950">{item.value}</p>
       <p className="mt-3 text-xs text-slate-950"><span className="font-bold text-[#e52529]">{item.trend}</span> {item.helper}</p>
@@ -35,12 +55,24 @@ function EduStatCard({ item }) {
   );
 }
 
-function WorkforceAttendance() {
+function percent(value, total) {
+  return total ? Math.round((value / total) * 100) : 0;
+}
+
+function WorkforceAttendance({ attendanceRows = [], employees = [] }) {
+  const today = todayIsoLocal();
+  const activeEmployees = employees.filter((employee) => employee.status !== 'INACTIVE').length;
+  const todayRows = attendanceRows.filter((row) => row.date === today);
+  const presentCount = todayRows.filter((row) => ['PRESENT', 'LATE'].includes(row.status)).length;
+  const lateCount = todayRows.filter((row) => row.status === 'LATE').length;
+  const absentCount = Math.max(activeEmployees - presentCount, 0);
+  const missedCount = todayRows.filter((row) => row.checkInTime && !row.checkOutTime).length;
+  const total = activeEmployees || todayRows.length;
   const rows = [
-    { label: 'Present', value: '88%', color: 'bg-[#28a99a]' },
-    { label: 'Absent', value: '7%', color: 'bg-[#e52529]' },
-    { label: 'Late Punch In', value: '9%', color: 'bg-[#ff7629]' },
-    { label: 'Remote', value: '18%', color: 'bg-[#3158f6]' }
+    { label: 'Present Today', value: `${percent(presentCount, total)}%`, color: 'bg-[#28a99a]', flex: presentCount },
+    { label: 'Absent Today', value: `${percent(absentCount, total)}%`, color: 'bg-[#e52529]', flex: absentCount },
+    { label: 'Late Punch In', value: `${percent(lateCount, total)}%`, color: 'bg-[#ff7629]', flex: lateCount },
+    { label: 'Open Punch', value: `${percent(missedCount, total)}%`, color: 'bg-[#3158f6]', flex: missedCount }
   ];
   return (
     <Card className="overflow-hidden bg-white transition duration-300 hover:-translate-y-0.5 hover:shadow-panel">
@@ -49,10 +81,7 @@ function WorkforceAttendance() {
       </div>
       <div className="p-4">
         <div className="flex h-8 gap-1 overflow-hidden rounded">
-          <div className="flex-[3] bg-[#28a99a] transition duration-300 hover:brightness-110" />
-          <div className="flex-[0.8] bg-[#e52529] transition duration-300 hover:brightness-110" />
-          <div className="flex-[0.7] bg-[#ff7629] transition duration-300 hover:brightness-110" />
-          <div className="flex-[1.2] bg-[#3158f6] transition duration-300 hover:brightness-110" />
+          {rows.map((row) => <div key={row.label} className={`${row.color} transition duration-300 hover:brightness-110`} style={{ flex: Math.max(row.flex, total ? 0.2 : 1) }} />)}
         </div>
         <div className="mt-6 space-y-5">
           {rows.map((row) => (
@@ -69,8 +98,13 @@ function WorkforceAttendance() {
 }
 
 function CalendarPanel() {
+  const now = new Date();
   const days = ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'];
-  const dates = ['', '', '', '', '', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24', '25', '26', '27', '28', '29', '30', '31'];
+  const monthStart = new Date(now.getFullYear(), now.getMonth(), 1);
+  const daysInMonth = new Date(now.getFullYear(), now.getMonth() + 1, 0).getDate();
+  const dates = [...Array(monthStart.getDay()).fill(''), ...Array.from({ length: daysInMonth }, (_value, index) => String(index + 1))];
+  const monthLabel = now.toLocaleDateString('en-GB', { month: 'long', year: 'numeric' });
+  const today = String(now.getDate());
   return (
     <Card className="overflow-hidden bg-white transition duration-300 hover:-translate-y-0.5 hover:shadow-panel">
       <div className="border-b border-slate-200 px-4 py-3">
@@ -79,7 +113,7 @@ function CalendarPanel() {
       <div className="p-3">
         <div className="flex h-7 items-center justify-between rounded-full bg-[#e2f7f5] px-2 text-[12px] font-bold text-slate-600">
           <button className="flex h-6 w-6 items-center justify-center rounded-full bg-white text-[#28a99a] transition hover:bg-[#28a99a] hover:text-white" aria-label="Previous month"><ChevronLeft size={14} /></button>
-          <span>May 2026</span>
+          <span>{monthLabel}</span>
           <button className="flex h-6 w-6 items-center justify-center rounded-full bg-white text-[#28a99a] transition hover:bg-[#28a99a] hover:text-white" aria-label="Next month"><ChevronRight size={14} /></button>
         </div>
         <div className="mt-3 grid grid-cols-7 gap-y-2.5 text-center text-[11px] font-bold text-slate-950">
@@ -87,7 +121,7 @@ function CalendarPanel() {
         </div>
         <div className="mt-2.5 grid grid-cols-7 gap-y-2 text-center text-[12px] text-slate-500">
           {dates.map((date, index) => (
-            <span key={`${date}-${index}`} className={date === '26' ? 'mx-auto flex h-7 w-7 items-center justify-center rounded bg-[#e52529] font-bold text-white shadow-sm transition duration-200 hover:bg-[#c91f23]' : date ? 'mx-auto flex h-7 w-7 items-center justify-center rounded transition duration-200 hover:bg-[#e2f7f5] hover:text-[#28a99a]' : ''}>{date}</span>
+            <span key={`${date}-${index}`} className={date === today ? 'mx-auto flex h-7 w-7 items-center justify-center rounded bg-[#e52529] font-bold text-white shadow-sm transition duration-200 hover:bg-[#c91f23]' : date ? 'mx-auto flex h-7 w-7 items-center justify-center rounded transition duration-200 hover:bg-[#e2f7f5] hover:text-[#28a99a]' : ''}>{date}</span>
           ))}
         </div>
       </div>
@@ -103,10 +137,13 @@ function Avatar({ name, tone = 'bg-blue-100 text-blue-700' }) {
   );
 }
 
-function PanelHeader({ title }) {
+function PanelHeader({ title, demo = false }) {
   return (
     <div className="flex min-h-11 items-center justify-between border-b border-slate-200 px-4 py-3">
-      <h2 className="text-sm font-bold text-slate-950">{title}</h2>
+      <div className="flex items-center gap-2">
+        <h2 className="text-sm font-bold text-slate-950">{title}</h2>
+        {demo && <DemoBadge />}
+      </div>
       <button className="text-slate-500 transition hover:text-slate-900" aria-label={`${title} options`}><MoreVertical size={16} /></button>
     </div>
   );
@@ -132,33 +169,35 @@ function NoticeBoard({ notices = [] }) {
   );
 }
 
-function LeaveRequestsPanel() {
-  const requests = [
-    { name: 'Pawan Pal', role: 'Operations Executive', days: '1 Day', date: '27 May' },
-    { name: 'Riya Sharma', role: 'HR Associate', days: '2 Days', date: '26 May' },
-    { name: 'Amit Verma', role: 'Finance Analyst', days: 'Half Day', date: '25 May' },
-    { name: 'Neha Singh', role: 'Sales Manager', days: '3 Days', date: '24 May' },
-    { name: 'Karan Mehta', role: 'Backend Developer', days: '1 Day', date: '23 May' },
-    { name: 'Sneha Rao', role: 'Support Lead', days: '2 Days', date: '22 May' }
-  ];
+function countLeaveDays(request) {
+  if (request.dayType === 'HALF_DAY') return 'Half Day';
+  if (!request.startDate || !request.endDate) return '1 Day';
+  const days = Math.max(1, Math.round((new Date(request.endDate) - new Date(request.startDate)) / 86400000) + 1);
+  return `${days} ${days === 1 ? 'Day' : 'Days'}`;
+}
+
+function LeaveRequestsPanel({ leaves = [] }) {
+  const requests = [...leaves]
+    .sort((a, b) => new Date(b.createdAt || 0) - new Date(a.createdAt || 0))
+    .slice(0, 6);
 
   return (
     <Card className="overflow-hidden bg-white">
       <PanelHeader title="Leave Requests" />
       <div className="app-scrollbar h-[360px] space-y-5 overflow-y-auto p-4">
-        {requests.map((request, index) => (
-          <div key={`${request.name}-${index}`} className="flex items-start gap-3">
-            <Avatar name={request.name} tone={index % 2 ? 'bg-amber-100 text-amber-700' : 'bg-rose-100 text-rose-700'} />
+        {requests.length ? requests.map((request, index) => (
+          <div key={request.id || index} className="flex items-start gap-3">
+            <Avatar name={request.employeeName || 'Employee'} tone={index % 2 ? 'bg-amber-100 text-amber-700' : 'bg-rose-100 text-rose-700'} />
             <div className="min-w-0">
-              <p className="truncate text-sm font-bold text-slate-950">{request.name}</p>
-              <p className="mt-1 text-xs text-slate-500">{request.role}</p>
+              <p className="truncate text-sm font-bold text-slate-950">{request.employeeName || 'Employee'}</p>
+              <p className="mt-1 text-xs text-slate-500">{request.leaveType || 'Leave'} | {request.status || 'PENDING'}</p>
             </div>
             <div className="ml-auto text-right">
-              <p className="text-sm font-extrabold text-slate-950">{request.days}</p>
-              <p className="mt-1 whitespace-nowrap text-xs text-slate-500">Applied: {request.date}</p>
+              <p className="text-sm font-extrabold text-slate-950">{countLeaveDays(request)}</p>
+              <p className="mt-1 whitespace-nowrap text-xs text-slate-500">Applied: {formatDate(request.createdAt)}</p>
             </div>
           </div>
-        ))}
+        )) : <p className="py-10 text-center text-sm font-medium text-slate-500">No leave requests found.</p>}
       </div>
     </Card>
   );
@@ -192,26 +231,30 @@ function UpcomingEvents({ events = [] }) {
   );
 }
 
-function UserOverview() {
+function UserOverview({ employees = [] }) {
+  const employeeCount = employees.length;
+  const activeEmployees = employees.filter((employee) => employee.status !== 'INACTIVE').length;
+  const inactiveEmployees = employees.filter((employee) => employee.status === 'INACTIVE').length;
+  const total = employeeCount || 1;
   const users = [
-    { label: 'Employees', value: 186, color: 'bg-[#13b91f]' },
-    { label: 'Admins', value: 6, color: 'bg-[#ff7629]' },
-    { label: 'Managers', value: 24, color: 'bg-[#3158f6]' }
+    { label: 'Active', value: activeEmployees, color: 'bg-[#13b91f]' },
+    { label: 'Inactive', value: inactiveEmployees, color: 'bg-[#ff7629]' },
+    { label: 'Admins', value: 1, color: 'bg-[#3158f6]', demo: true }
   ];
 
   return (
     <Card className="overflow-hidden bg-white">
-      <PanelHeader title="User Overview" />
+      <PanelHeader title="User Overview" demo />
       <div className="p-4">
         <div className="relative mx-auto h-[178px] max-w-[260px]">
-          <div className="absolute left-6 top-8 flex h-32 w-32 items-center justify-center rounded-full bg-gradient-to-br from-[#22d4c1] to-[#0c9f91] text-2xl font-extrabold text-white shadow-lg">60%</div>
-          <div className="absolute right-3 top-2 flex h-28 w-28 items-center justify-center rounded-full bg-gradient-to-br from-[#ff9b45] to-[#ff6724] text-2xl font-extrabold text-white shadow-lg">30%</div>
-          <div className="absolute bottom-3 right-14 flex h-20 w-20 items-center justify-center rounded-full bg-gradient-to-br from-[#7e8cff] to-[#2648f5] text-xl font-extrabold text-white shadow-lg ring-4 ring-white">10%</div>
+          <div className="absolute left-6 top-8 flex h-32 w-32 items-center justify-center rounded-full bg-gradient-to-br from-[#22d4c1] to-[#0c9f91] text-2xl font-extrabold text-white shadow-lg">{percent(activeEmployees, total)}%</div>
+          <div className="absolute right-3 top-2 flex h-28 w-28 items-center justify-center rounded-full bg-gradient-to-br from-[#ff9b45] to-[#ff6724] text-2xl font-extrabold text-white shadow-lg">{percent(inactiveEmployees, total)}%</div>
+          <div className="absolute bottom-3 right-14 flex h-20 w-20 items-center justify-center rounded-full bg-gradient-to-br from-[#7e8cff] to-[#2648f5] text-xl font-extrabold text-white shadow-lg ring-4 ring-white">DEMO</div>
         </div>
         <div className="mt-2 grid grid-cols-3 gap-3 px-4">
           {users.map((user) => (
             <div key={user.label}>
-              <p className="flex items-center gap-2 text-xs font-medium text-slate-600"><span className={`h-2.5 w-2.5 rounded-full ${user.color}`} />{user.label}</p>
+              <p className="flex items-center gap-2 text-xs font-medium text-slate-600"><span className={`h-2.5 w-2.5 rounded-full ${user.color}`} />{user.label}{user.demo && <DemoBadge />}</p>
               <p className="mt-2 text-sm font-extrabold text-slate-950">{user.value}</p>
             </div>
           ))}
@@ -221,32 +264,36 @@ function UserOverview() {
   );
 }
 
-function IncomeExpenseChart() {
-  const data = [
-    { name: 'Jan', salary: 47, reimbursements: 10 },
-    { name: 'Feb', salary: 49, reimbursements: 8 },
-    { name: 'Mar', salary: 54, reimbursements: 12 },
-    { name: 'Apr', salary: 58, reimbursements: 15 },
-    { name: 'May', salary: 61, reimbursements: 11 },
-    { name: 'Jun', salary: 63, reimbursements: 14 },
-    { name: 'Jul', salary: 64, reimbursements: 9 },
-    { name: 'Aug', salary: 66, reimbursements: 13 },
-    { name: 'Sep', salary: 68, reimbursements: 16 }
+function IncomeExpenseChart({ payrolls = [] }) {
+  const monthly = payrolls.reduce((map, payroll) => {
+    const key = payroll.month || 'Unknown';
+    const current = map.get(key) || { name: key, salary: 0, deductions: 0 };
+    current.salary += Number(payroll.finalSalary || 0);
+    current.deductions += Number(payroll.deductions || 0);
+    map.set(key, current);
+    return map;
+  }, new Map());
+  const data = [...monthly.values()].sort((a, b) => a.name.localeCompare(b.name));
+  const visibleData = data.length ? data : [
+    { name: 'Jan', salary: 47000, deductions: 10000 },
+    { name: 'Feb', salary: 49000, deductions: 8000 },
+    { name: 'Mar', salary: 54000, deductions: 12000 }
   ];
-  const formatTick = (value) => money(value * 1000);
-  const formatTooltip = (value) => money(value * 1000);
+  const totalSalary = data.reduce((sum, row) => sum + row.salary, 0);
+  const totalDeductions = data.reduce((sum, row) => sum + row.deductions, 0);
+  const formatTooltip = (value) => money(value);
 
   return (
     <Card className="overflow-hidden bg-white">
-      <PanelHeader title="Payroll Trend" />
+      <PanelHeader title="Payroll Trend" demo={!data.length} />
       <div className="p-4">
         <div className="mb-2 flex items-center justify-center gap-4 text-xs text-slate-600">
-          <span className="inline-flex items-center gap-2"><span className="h-2.5 w-2.5 rounded-full bg-[#28a99a]" />Salary: <b className="text-slate-950">{money(1840000)}</b></span>
-          <span className="inline-flex items-center gap-2"><span className="h-2.5 w-2.5 rounded-full bg-[#ff7629]" />Reimbursements: <b className="text-slate-950">{money(126000)}</b></span>
+          <span className="inline-flex items-center gap-2"><span className="h-2.5 w-2.5 rounded-full bg-[#28a99a]" />Salary: <b className="text-slate-950">{money(totalSalary)}</b></span>
+          <span className="inline-flex items-center gap-2"><span className="h-2.5 w-2.5 rounded-full bg-[#ff7629]" />Deductions: <b className="text-slate-950">{money(totalDeductions)}</b></span>
         </div>
         <div className="h-[212px]">
           <ResponsiveContainer width="100%" height="100%">
-            <AreaChart data={data} margin={{ left: 2, right: 10, top: 8, bottom: 0 }}>
+            <AreaChart data={visibleData} margin={{ left: 2, right: 10, top: 8, bottom: 0 }}>
               <defs>
                 <linearGradient id="incomeFill" x1="0" y1="0" x2="0" y2="1">
                   <stop offset="5%" stopColor="#28a99a" stopOpacity={0.22} />
@@ -259,10 +306,10 @@ function IncomeExpenseChart() {
               </defs>
               <CartesianGrid vertical={false} stroke="#e5e7eb" strokeDasharray="2 2" />
               <XAxis dataKey="name" fontSize={11} tickLine={false} />
-              <YAxis fontSize={11} tickFormatter={formatTick} />
+              <YAxis fontSize={11} tickFormatter={money} />
               <Tooltip cursor={{ stroke: '#cbd5e1' }} formatter={formatTooltip} />
               <Area type="stepAfter" dataKey="salary" stroke="#16a34a" fill="url(#incomeFill)" strokeWidth={2} dot={false} />
-              <Area type="stepAfter" dataKey="reimbursements" stroke="#ff8a1f" fill="url(#expenseFill)" strokeWidth={2} dot={false} />
+              <Area type="stepAfter" dataKey="deductions" stroke="#ff8a1f" fill="url(#expenseFill)" strokeWidth={2} dot={false} />
             </AreaChart>
           </ResponsiveContainer>
         </div>
@@ -513,6 +560,55 @@ function RecentAttendanceHistory({ rows }) {
   );
 }
 
+function currentMonthKey() {
+  const now = new Date();
+  return `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}`;
+}
+
+function buildAdminStats({ employees = [], attendanceRows = [], leaves = [], payrolls = [] }) {
+  const today = todayIsoLocal();
+  const monthKey = currentMonthKey();
+  const activeEmployees = employees.filter((employee) => employee.status !== 'INACTIVE');
+  const joinedThisMonth = employees.filter((employee) => employee.joiningDate?.startsWith(monthKey)).length;
+  const todayRows = attendanceRows.filter((row) => row.date === today);
+  const presentToday = todayRows.filter((row) => ['PRESENT', 'LATE'].includes(row.status)).length;
+  const pendingLeaves = leaves.filter((leave) => leave.status === 'PENDING').length;
+  const newLeaves = leaves.filter((leave) => leave.createdAt?.startsWith(today)).length;
+  const currentPayrolls = payrolls.filter((payroll) => payroll.month === monthKey);
+  const payrollValue = (currentPayrolls.length ? currentPayrolls : payrolls).reduce((sum, row) => sum + Number(row.finalSalary || 0), 0);
+  const departments = new Set(activeEmployees.map((employee) => employee.department).filter(Boolean)).size;
+
+  return [
+    { label: 'Total Employees', value: activeEmployees.length, helper: `${joinedThisMonth} joined this month`, trend: 'Live', icon: UsersRound, tone: 'bg-[#3158f6]', card: 'from-[#f3f6ff] via-[#e5ecff] to-[#cddcff]' },
+    { label: 'Present Today', value: presentToday, helper: `${percent(presentToday, activeEmployees.length)}% workforce`, trend: `${todayRows.length} punches`, icon: UserRound, tone: 'bg-[#28a99a]', card: 'from-[#effffc] via-[#d8fbf6] to-[#b8f2e9]' },
+    { ...stats[2], demo: true },
+    { label: 'Leave Requests', value: pendingLeaves, helper: `${newLeaves} new today`, trend: 'Pending', icon: CalendarDays, tone: 'bg-[#ff7629]', card: 'from-[#fff7ed] via-[#ffead2] to-[#ffd6a8]' },
+    { label: 'Payroll Value', value: money(payrollValue), helper: `${monthKey} payroll cycle`, trend: currentPayrolls.length ? 'Current' : 'All', icon: WalletCards, tone: 'bg-[#02c52d]', card: 'from-[#effff2] via-[#d9ffe0] to-[#baffc8]' },
+    { label: 'Departments', value: departments, helper: 'From employee profiles', trend: 'Live', icon: GraduationCap, tone: 'bg-[#a61ced]', card: 'from-[#fff3ff] via-[#f8ddff] to-[#edc2ff]' }
+  ];
+}
+
+function buildHeadcountRows(employees = []) {
+  if (!employees.length) return demoChartRows;
+  const year = new Date().getFullYear();
+  const monthLabels = Array.from({ length: 12 }, (_value, index) => new Date(year, index, 1).toLocaleDateString('en-GB', { month: 'short' }));
+  const joinedByMonth = Array(12).fill(0);
+  let openingHeadcount = 0;
+
+  employees.forEach((employee) => {
+    const joined = employee.joiningDate ? new Date(employee.joiningDate) : null;
+    if (!joined || Number.isNaN(joined.getTime())) return;
+    if (joined.getFullYear() < year) openingHeadcount += 1;
+    if (joined.getFullYear() === year) joinedByMonth[joined.getMonth()] += 1;
+  });
+
+  let headcount = openingHeadcount;
+  return monthLabels.map((name, index) => {
+    headcount += joinedByMonth[index];
+    return { name, headcount, joined: joinedByMonth[index] };
+  });
+}
+
 function EmployeeDashboard({ attendanceRows, notices, events, punchAttendance, user }) {
   return (
     <>
@@ -539,6 +635,8 @@ export default function Dashboard() {
   const attendance = useApiQuery('attendance', '/attendance', { enabled: canLoadCompanyContent });
   const notices = useApiQuery(['notices', isEmployee ? 'visible' : 'all'], isEmployee ? '/notices' : '/notices?all=true', { enabled: canLoadCompanyContent });
   const events = useApiQuery(['events', isEmployee ? 'visible' : 'all'], isEmployee ? '/events' : '/events?all=true', { enabled: canLoadCompanyContent });
+  const employees = useApiQuery('dashboard-employees', '/employees', { enabled: user?.role === 'COMPANY_ADMIN' });
+  const reports = useApiQuery('dashboard-reports', '/reports', { enabled: user?.role === 'COMPANY_ADMIN' });
   const punchAttendance = useMutation((type) => api.post('/attendance/self-punch', { type }), {
     onSuccess: (_response, type) => {
       toast.success(type === 'CHECK_IN' ? 'Punched in successfully' : 'Punched out successfully');
@@ -550,20 +648,13 @@ export default function Dashboard() {
   const attendanceRows = attendance.data || [];
   const noticeRows = notices.data || [];
   const eventRows = events.data || [];
-  const chartRows = [
-    { name: 'Jan', headcount: 142, joined: 6 },
-    { name: 'Feb', headcount: 148, joined: 8 },
-    { name: 'Mar', headcount: 155, joined: 10 },
-    { name: 'Apr', headcount: 162, joined: 7 },
-    { name: 'May', headcount: 168, joined: 9 },
-    { name: 'Jun', headcount: 171, joined: 5 },
-    { name: 'Jul', headcount: 176, joined: 6 },
-    { name: 'Aug', headcount: 181, joined: 8 },
-    { name: 'Sep', headcount: 186, joined: 7 },
-    { name: 'Oct', headcount: 190, joined: 6 },
-    { name: 'Nov', headcount: 194, joined: 5 },
-    { name: 'Dec', headcount: 201, joined: 9 }
-  ];
+  const employeeRows = employees.data || [];
+  const reportRows = reports.data || {};
+  const leaveRows = reportRows.leaves || [];
+  const payrollRows = reportRows.payrolls || [];
+  const adminStats = buildAdminStats({ employees: employeeRows, attendanceRows, leaves: leaveRows, payrolls: payrollRows });
+  const chartRows = buildHeadcountRows(employeeRows);
+  const headcountIsDemo = !employeeRows.length;
   const formatHeadcountTooltip = (value, name) => [value, name === 'headcount' ? 'Headcount' : 'New Joiners'];
 
   if (loading) return <LoadingState />;
@@ -575,20 +666,21 @@ export default function Dashboard() {
       <PageHeader title="Dashboard" subtitle="HRMS overview for workforce, attendance, payroll, hiring, and leave operations." />
       <motion.div className="grid gap-4 xl:grid-cols-[1fr_347px]" initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.25 }}>
         <div className="grid gap-4 md:grid-cols-3">
-          {stats.slice(0, 3).map((item, index) => <EduStatCard key={index} item={item} />)}
-          {stats.slice(3).map((item, index) => <EduStatCard key={index + 3} item={item} />)}
+          {adminStats.slice(0, 3).map((item, index) => <EduStatCard key={index} item={item} />)}
+          {adminStats.slice(3).map((item, index) => <EduStatCard key={index + 3} item={item} />)}
         </div>
-        <WorkforceAttendance />
+        <WorkforceAttendance attendanceRows={attendanceRows} employees={employeeRows} />
       </motion.div>
       <div className="mt-4 grid gap-4 xl:grid-cols-[1fr_347px]">
       <Card className="overflow-hidden bg-white">
-        <div className="border-b border-slate-200 px-4 py-3">
+        <div className="flex items-center gap-2 border-b border-slate-200 px-4 py-3">
           <h2 className="text-sm font-bold text-slate-950">Headcount Growth</h2>
+          {headcountIsDemo && <DemoBadge />}
         </div>
         <div className="p-4">
         <div className="mb-3 flex items-center justify-center gap-4 text-xs text-slate-500">
-          <span className="inline-flex items-center gap-2"><span className="h-2.5 w-2.5 rotate-45 bg-[#28a99a]" />Headcount: <b className="text-slate-950">186</b></span>
-          <span className="inline-flex items-center gap-2"><span className="h-2.5 w-2.5 rotate-45 bg-[#ff7629]" />New Joiners: <b className="text-slate-950">76</b></span>
+          <span className="inline-flex items-center gap-2"><span className="h-2.5 w-2.5 rotate-45 bg-[#28a99a]" />Headcount: <b className="text-slate-950">{chartRows.at(-1)?.headcount || 0}</b></span>
+          <span className="inline-flex items-center gap-2"><span className="h-2.5 w-2.5 rotate-45 bg-[#ff7629]" />New Joiners: <b className="text-slate-950">{chartRows.reduce((sum, row) => sum + row.joined, 0)}</b></span>
         </div>
         <div className="h-[205px]">
           <ResponsiveContainer width="100%" height="100%">
@@ -608,12 +700,12 @@ export default function Dashboard() {
       </div>
       <div className="mt-4 grid gap-4 xl:grid-cols-3">
         <NoticeBoard notices={noticeRows} />
-        <LeaveRequestsPanel />
+        <LeaveRequestsPanel leaves={leaveRows} />
         <UpcomingEvents events={eventRows} />
       </div>
       <div className="mt-4 grid gap-4 xl:grid-cols-[347px_1fr]">
-        <UserOverview />
-        <IncomeExpenseChart />
+        <UserOverview employees={employeeRows} />
+        <IncomeExpenseChart payrolls={payrollRows} />
       </div>
     </>
   );
