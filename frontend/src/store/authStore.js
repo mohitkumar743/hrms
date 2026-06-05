@@ -16,4 +16,4 @@ export const useAuthStore = create(persist((set) => ({
     return data.user;
   },
   logout: () => set({ user: null, accessToken: null, refreshToken: null })
-}), { name: 'pulsehr-auth' }));
+}), { name: 'attendo-auth' }));

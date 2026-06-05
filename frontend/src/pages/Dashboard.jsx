@@ -663,7 +663,7 @@ export default function Dashboard() {
 
   return (
     <>
-      <PageHeader title="Dashboard" subtitle="HRMS overview for workforce, attendance, payroll, hiring, and leave operations." />
+      <PageHeader title="Dashboard" subtitle="Attendo overview for workforce, attendance, payroll, hiring, and leave operations." />
       <motion.div className="grid gap-4 xl:grid-cols-[1fr_347px]" initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.25 }}>
         <div className="grid gap-4 md:grid-cols-3">
           {adminStats.slice(0, 3).map((item, index) => <EduStatCard key={index} item={item} />)}

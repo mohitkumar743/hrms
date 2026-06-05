@@ -8,6 +8,7 @@ import { api } from '../services/api.js';
 import { Button, Card, CompactTable, Field, Input, LoadingState, PageHeader, PasswordInput, Select } from '../components/ui.jsx';
 import { useApiQuery } from '../hooks/useApiQuery.js';
 import { money } from '../lib/utils.js';
+import attendoHorizontalLogo from '../Assets/horizoanllogoandnaem.png';
 
 const emptyForm = { employeeCode: '', fullName: '', phone: '', email: '', password: 'password123', department: '', designation: '', joiningDate: '', monthlySalary: '', shiftStart: '', shiftEnd: '' };
 
@@ -256,10 +257,10 @@ export default function Employees() {
                     </div>
                   </div>
                   <div className="overflow-hidden rounded-xl border border-slate-200 bg-white shadow-panel">
-                    <div className="bg-[#28a99a] px-4 py-3 text-center text-white">
-                      <p className="text-[10px] font-bold uppercase tracking-wide">Employee ID Card</p>
-                      <h3 className="mt-0.5 text-base font-extrabold">HRMS</h3>
-                    </div>
+	                    <div className="bg-[#28a99a] px-4 py-3 text-center text-white">
+	                      <p className="text-[10px] font-bold uppercase tracking-wide">Employee ID Card</p>
+	                      <img src={attendoHorizontalLogo} alt="Attendo" className="mx-auto mt-1 h-7 w-32 object-contain brightness-0 invert" />
+	                    </div>
                     <div className="p-4 text-center">
                       <UserCircle className="mx-auto text-slate-500" size={56} />
                       <p className="mt-2 text-base font-extrabold text-slate-950">{viewEmployee.fullName}</p>

@@ -1,6 +1,6 @@
-# PulseHR HRMS SaaS MVP
+# Attendo
 
-Production-style full-stack HRMS MVP for multi-tenant employee attendance, leave, and payroll management.
+Production-style full-stack attendance and HR operations platform for multi-tenant employee attendance, leave, and payroll management.
 
 ## Structure
 

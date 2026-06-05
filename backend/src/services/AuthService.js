@@ -12,12 +12,20 @@ export class AuthService {
   }
 
   async ensureSeedAdmin() {
-    const existingSuperAdmin = await this.users.findByEmail('superadmin@pulsehr.test');
-    if (!existingSuperAdmin) {
+    const existingSuperAdmin = await this.users.findOne({ role: ROLES.SUPER_ADMIN });
+    let hasSuperAdmin = Boolean(existingSuperAdmin);
+    if (existingSuperAdmin && (existingSuperAdmin.name !== 'Attendo Super Admin' || existingSuperAdmin.email !== 'superadmin@attendo.in')) {
+      await this.users.update(existingSuperAdmin.id, {
+        name: 'Attendo Super Admin',
+        email: 'superadmin@attendo.in'
+      });
+    }
+
+    if (!hasSuperAdmin) {
       await this.users.create({
         companyId: null,
-        name: 'PulseHR Super Admin',
-        email: 'superadmin@pulsehr.test',
+        name: 'Attendo Super Admin',
+        email: 'superadmin@attendo.in',
         passwordHash: await bcrypt.hash('password123', 10),
         role: ROLES.SUPER_ADMIN,
         status: 'ACTIVE'

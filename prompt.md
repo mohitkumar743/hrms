@@ -1,4 +1,4 @@
-Create a full-stack production-style HRMS SaaS MVP project with 2 folders:
+Create a full-stack production-style Attendo SaaS MVP project with 2 folders:
 
 /backend
 /frontend

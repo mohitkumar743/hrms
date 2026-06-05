@@ -8,7 +8,7 @@ import { companySchema, companyUpdateSchema } from '../validations/schemas.js';
 const router = Router();
 
 router.use(authenticate);
-router.get('/me', authorize(ROLES.COMPANY_ADMIN), getMyCompany);
+router.get('/me', authorize(ROLES.COMPANY_ADMIN, ROLES.EMPLOYEE), getMyCompany);
 router.get('/', authorize(ROLES.SUPER_ADMIN), listCompanies);
 router.post('/', authorize(ROLES.SUPER_ADMIN), validate(companySchema), createCompany);
 router.put('/:id', authorize(ROLES.SUPER_ADMIN), validate(companyUpdateSchema), updateCompany);

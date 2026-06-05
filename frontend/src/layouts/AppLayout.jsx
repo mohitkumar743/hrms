@@ -1,11 +1,13 @@
 import { Link, NavLink, Outlet, useLocation } from 'react-router-dom';
 import { createPortal } from 'react-dom';
-import { Activity, BarChart3, Bell, BriefcaseBusiness, Building2, CalendarCheck, ChevronDown, ChevronLeft, ChevronRight, FileCog, FileText, LayoutDashboard, List, LogOut, Menu, Moon, QrCode, Search, Settings, ShieldCheck, Sun, UserPlus, UserRound, UsersRound, WalletCards, X } from 'lucide-react';
+import { Activity, BarChart3, Bell, Building2, CalendarCheck, ChevronDown, ChevronLeft, ChevronRight, FileCog, FileText, LayoutDashboard, List, LogOut, Menu, Moon, QrCode, Settings, ShieldCheck, Sun, UserPlus, UserRound, UsersRound, WalletCards, X } from 'lucide-react';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { Button } from '../components/ui.jsx';
 import { useAuthStore } from '../store/authStore.js';
 import { cn } from '../lib/utils.js';
 import { useApiQuery } from '../hooks/useApiQuery.js';
+import attendoHorizontalLogo from '../Assets/horizoanllogoandnaem.png';
+import attendoIconLogo from '../Assets/Icon.png';
 
 const iconMap = {
   Activity,
@@ -90,7 +92,7 @@ function buildHeaderNotifications(notices = [], events = [], leaves = [], user) 
 
 function openNotificationDb() {
   return new Promise((resolve, reject) => {
-    const request = indexedDB.open('hrms-notifications', 1);
+    const request = indexedDB.open('attendo-notifications', 1);
     request.onupgradeneeded = () => {
       request.result.createObjectStore('readNotifications');
     };
@@ -226,13 +228,16 @@ export default function AppLayout() {
   const [notificationsOpen, setNotificationsOpen] = useState(false);
   const [readNotifications, setReadNotifications] = useState([]);
   const [isDesktop, setIsDesktop] = useState(() => window.matchMedia('(min-width: 1024px)').matches);
-  const [theme, setTheme] = useState(() => localStorage.getItem('hrms-theme') || 'light');
+  const [theme, setTheme] = useState(() => localStorage.getItem('attendo-theme') || 'light');
   const [collapsed, setCollapsed] = useState(false);
   const [openParentId, setOpenParentId] = useState(null);
+  const [logoutConfirmOpen, setLogoutConfirmOpen] = useState(false);
   const notificationsRef = useRef(null);
   const { user, logout } = useAuthStore();
   const location = useLocation();
   const navQuery = useApiQuery(['page-navigation', user?.role, user?.companyId], '/pages/navigation', { enabled: Boolean(user) });
+  const canLoadCompany = ['COMPANY_ADMIN', 'EMPLOYEE'].includes(user?.role);
+  const companyQuery = useApiQuery(['header-company', user?.companyId], '/companies/me', { enabled: canLoadCompany });
   const canLoadNotifications = ['COMPANY_ADMIN', 'EMPLOYEE'].includes(user?.role);
   const noticesQuery = useApiQuery(['header-notices', user?.role, user?.companyId], user?.role === 'EMPLOYEE' ? '/notices' : '/notices?all=true', { enabled: canLoadNotifications });
   const eventsQuery = useApiQuery(['header-events', user?.role, user?.companyId], user?.role === 'EMPLOYEE' ? '/events' : '/events?all=true', { enabled: canLoadNotifications });
@@ -242,6 +247,9 @@ export default function AppLayout() {
   const notificationsLoading = canLoadNotifications && (noticesQuery.isLoading || eventsQuery.isLoading || leavesQuery.isLoading);
   const readStorageKey = user?.id ? `user-${user.id}` : 'anonymous';
   const unreadCount = notificationItems.filter((item) => !readNotifications.includes(item.id)).length;
+  const roleLabel = user?.role === 'SUPER_ADMIN' ? 'Super Admin' : user?.role === 'EMPLOYEE' ? 'Employee' : 'Admin';
+  const displayName = user?.name || roleLabel;
+  const companyName = user?.role === 'SUPER_ADMIN' ? 'Attendo' : companyQuery.data?.name || 'Company';
 
   const markNotificationRead = (id) => {
     setReadNotifications((current) => {
@@ -250,6 +258,15 @@ export default function AppLayout() {
       saveReadNotifications(readStorageKey, next).catch(() => {});
       return next;
     });
+  };
+
+  const confirmLogout = () => {
+    setLogoutConfirmOpen(true);
+  };
+
+  const completeLogout = () => {
+    setLogoutConfirmOpen(false);
+    logout();
   };
 
   useEffect(() => {
@@ -306,20 +323,31 @@ export default function AppLayout() {
 
   useEffect(() => {
     document.documentElement.classList.toggle('theme-dark', theme === 'dark');
-    localStorage.setItem('hrms-theme', theme);
+    localStorage.setItem('attendo-theme', theme);
   }, [theme]);
+
+  useEffect(() => {
+    if (!logoutConfirmOpen) return undefined;
+
+    const closeOnEscape = (event) => {
+      if (event.key === 'Escape') setLogoutConfirmOpen(false);
+    };
+
+    document.addEventListener('keydown', closeOnEscape);
+    return () => document.removeEventListener('keydown', closeOnEscape);
+  }, [logoutConfirmOpen]);
 
   return (
     <div className="min-h-screen bg-app-bg">
       {open && !isDesktop && <button aria-label="Close sidebar overlay" className="fixed inset-0 z-20 bg-slate-950/20" onClick={() => setOpen(false)} />}
       <aside className={cn('sidebar-scrollbar fixed inset-y-0 left-0 z-30 overflow-y-auto border-r border-slate-200 bg-white transition-all duration-200 lg:translate-x-0', collapsed ? 'w-[72px]' : 'w-[233px]', open ? 'translate-x-0' : '-translate-x-full')}>
         <div className={cn('flex h-[52px] items-center justify-between border-b border-slate-200 px-4', collapsed && 'justify-center px-2')}>
-          <div className="flex items-center gap-2">
-            <div className="relative flex h-8 w-8 items-center justify-center">
-              <span className="absolute h-8 w-8 rounded-full border-[5px] border-[#2563eb] border-b-[#28a99a] border-l-[#28a99a]" />
-              <BriefcaseBusiness className="relative text-[#2563eb]" size={17} />
-            </div>
-            {!collapsed && <p className="text-[22px] font-extrabold leading-none text-slate-900">HRMS</p>}
+          <div className={cn('flex min-w-0 items-center', collapsed ? 'justify-center' : 'w-full')}>
+            <img
+              src={collapsed ? attendoIconLogo : attendoHorizontalLogo}
+              alt="Attendo"
+              className={cn('object-contain', collapsed ? 'h-8 w-8' : 'h-9 w-[145px]')}
+            />
           </div>
           <button className={cn('hidden text-slate-500 lg:block', collapsed && 'absolute -right-3 top-4 rounded-full border border-slate-200 bg-white p-1 shadow-sm')} aria-label={collapsed ? 'Expand sidebar' : 'Collapse sidebar'} onClick={() => setCollapsed((current) => !current)}>
             {collapsed ? <ChevronRight size={16} /> : <ChevronLeft size={18} />}
@@ -329,10 +357,9 @@ export default function AppLayout() {
         <div className={cn('m-3 flex items-center gap-3 rounded-lg bg-[#f1f5f9] p-3', collapsed && 'justify-center p-2')}>
           <div className="flex h-9 w-9 items-center justify-center rounded-full bg-[#ffe2bd] text-[#ff7629]"><UserRound size={18} /></div>
           {!collapsed && <div className="min-w-0">
-            <p className="truncate text-[13px] font-semibold leading-4 text-slate-900">{user?.role === 'EMPLOYEE' ? user?.name : 'Jone Copper'}</p>
-            <p className="text-xs leading-4 text-slate-500">{user?.role === 'SUPER_ADMIN' ? 'Super Admin' : user?.role === 'EMPLOYEE' ? 'Employee' : 'Admin'}</p>
+            <p className="truncate text-[13px] font-semibold leading-4 text-slate-900">{displayName}</p>
+            <p className="text-xs leading-4 text-slate-500">{roleLabel}</p>
           </div>}
-          {!collapsed && <ChevronRight className="ml-auto text-slate-500" size={16} />}
         </div>
         <nav className={cn('space-y-1 pb-4 pt-1', collapsed ? 'px-2' : 'px-3')}>
           {visibleNav.map((item) => <SidebarLink key={item.id} item={item} collapsed={collapsed} openParentId={openParentId} setOpenParentId={setOpenParentId} onNavigate={() => setOpen(false)} />)}
@@ -349,9 +376,8 @@ export default function AppLayout() {
           >
             <Menu className="h-6 w-6" strokeWidth={2.5} />
           </button>
-          <div className="relative min-w-0 flex-1 sm:max-w-[291px]">
-            <Search className="absolute left-3 top-2.5 text-slate-500" size={15} />
-            <input className="h-[30px] w-full rounded-md border border-slate-300 bg-white pl-9 pr-3 text-[13px] outline-none placeholder:text-slate-500 focus:border-[#e52529] focus:ring-2 focus:ring-red-100" placeholder="Search" />
+          <div className="min-w-0 flex-1">
+            <p className="truncate text-base font-extrabold leading-5 text-slate-950">{companyName}</p>
           </div>
           <div className="ml-auto flex shrink-0 items-center gap-2">
             <button className="flex h-8 w-8 items-center justify-center rounded-full bg-slate-100 text-slate-600 transition hover:bg-slate-200" aria-label={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'} onClick={() => setTheme((current) => current === 'dark' ? 'light' : 'dark')}>
@@ -412,16 +438,53 @@ export default function AppLayout() {
                 </div>
               )}
             </div>
-            <button className="flex h-8 items-center gap-2 rounded-full bg-red-50 px-3 text-xs font-bold text-[#e52529] transition hover:bg-[#e52529] hover:text-white" aria-label="Logout" onClick={logout}>
+            <button className="flex h-8 items-center gap-2 rounded-full bg-red-50 px-3 text-xs font-bold text-[#e52529] transition hover:bg-[#e52529] hover:text-white" aria-label="Logout" onClick={confirmLogout}>
               <LogOut size={15} />
               <span className="hidden sm:inline">Logout</span>
-            </button>
-          </div>
-        </header>
-        <main className="app-scrollbar p-[18px]">
-          <Outlet />
-        </main>
-      </div>
-    </div>
-  );
-}
+	            </button>
+	          </div>
+	        </header>
+	        <main className="app-scrollbar p-[18px]">
+	          <Outlet />
+	        </main>
+	      </div>
+	      {logoutConfirmOpen && (
+	        <div className="fixed inset-0 z-50 grid place-items-center bg-slate-950/30 p-4">
+	          <button
+	            type="button"
+	            className="absolute inset-0 cursor-default"
+	            aria-label="Cancel logout"
+	            onClick={() => setLogoutConfirmOpen(false)}
+	          />
+	          <div className="relative w-full max-w-sm rounded-md border border-slate-200 bg-white p-5 shadow-xl">
+	            <div className="flex items-start gap-3">
+	              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-red-50 text-[#e52529]">
+	                <LogOut size={18} />
+	              </div>
+	              <div className="min-w-0">
+	                <h2 className="text-base font-extrabold text-slate-950">Logout?</h2>
+	                <p className="mt-1 text-sm leading-5 text-slate-500">Are you sure you want to logout?</p>
+	              </div>
+	            </div>
+	            <div className="mt-5 flex justify-end gap-2">
+	              <button
+	                type="button"
+	                className="h-9 min-w-[86px] rounded-md border border-slate-300 bg-white px-4 text-sm font-semibold text-slate-600 transition hover:bg-slate-50"
+	                onClick={() => setLogoutConfirmOpen(false)}
+	              >
+	                Cancel
+	              </button>
+	              <button
+	                type="button"
+	                className="h-9 min-w-[86px] rounded-md bg-[#e52529] px-4 text-sm font-semibold text-white transition hover:bg-red-700"
+	                onClick={completeLogout}
+	              >
+	                Logout
+	              </button>
+	            </div>
+	          </div>
+	        </div>
+	      )}
+	    </div>
+	  );
+	}
