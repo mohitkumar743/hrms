@@ -350,15 +350,27 @@ function formatDuration(start, end) {
   return `${hours ? `${hours} hr ` : ''}${remainingMinutes ? `${remainingMinutes} min` : ''}`.trim() || '0 min';
 }
 
-function SwipeAction({ label, tone = 'green', icon: Icon, disabled, onComplete }) {
+function SwipeAction({ label, tone = 'green', icon: Icon, disabled, processing, onComplete }) {
   const [progress, setProgress] = useState(0);
   const trackRef = useRef(null);
   const x = useMotionValue(0);
   const isGreen = tone === 'green';
-  const complete = () => {
-    if (disabled) return;
+  const maxTravel = () => Math.max(1, (trackRef.current?.clientWidth || 0) - 52);
+
+  useEffect(() => {
+    if (processing) {
+      setProgress(100);
+      x.set(maxTravel());
+      return;
+    }
     setProgress(0);
     x.set(0);
+  }, [processing, x]);
+
+  const complete = () => {
+    if (disabled) return;
+    setProgress(100);
+    x.set(maxTravel());
     onComplete();
   };
   const reset = () => {
@@ -375,7 +387,7 @@ function SwipeAction({ label, tone = 'green', icon: Icon, disabled, onComplete }
         transition={{ duration: 0.15 }}
       />
       <div className="pointer-events-none absolute inset-0 flex items-center justify-center gap-2 px-14 text-sm font-extrabold text-slate-700">
-        <span className="truncate">{label}</span>
+        <span className="truncate">{processing ? 'Processing...' : label}</span>
       </div>
       <motion.button
         type="button"
@@ -386,11 +398,11 @@ function SwipeAction({ label, tone = 'green', icon: Icon, disabled, onComplete }
         dragElastic={0}
         dragMomentum={false}
         onDrag={(_event, info) => {
-          const max = Math.max(1, (trackRef.current?.clientWidth || 0) - 52);
+          const max = maxTravel();
           setProgress(Math.min(100, Math.max(0, (info.offset.x / max) * 100)));
         }}
         onDragEnd={() => {
-          const max = Math.max(1, (trackRef.current?.clientWidth || 0) - 52);
+          const max = maxTravel();
           const travelled = x.get();
           if (travelled >= max * 0.86) complete();
           else reset();
@@ -398,7 +410,7 @@ function SwipeAction({ label, tone = 'green', icon: Icon, disabled, onComplete }
         disabled={disabled}
         aria-label={label}
       >
-        {Icon ? <Icon size={18} /> : <ArrowRight size={18} />}
+        {processing ? <Clock3 size={18} /> : Icon ? <Icon size={18} /> : <ArrowRight size={18} />}
       </motion.button>
     </div>
   );
@@ -459,6 +471,7 @@ function EmployeePunchCard({ rows, user, punchAttendance }) {
             tone={isPunchedIn ? 'orange' : 'green'}
             icon={isPunchedIn ? LogOut : LogIn}
             disabled={punchAttendance.isLoading}
+            processing={punchAttendance.isLoading}
             onComplete={() => punchAttendance.mutate(punchType)}
           />
         )}
