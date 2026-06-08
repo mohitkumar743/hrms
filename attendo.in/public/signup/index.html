@@ -1,0 +1,251 @@
+<!doctype html>
+<html lang="en-US">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Sign Up - Attendo</title>
+  <link rel="icon" href="../assets/Logos/Icon.png" sizes="32x32">
+  <link rel="stylesheet" href="../assets/themes/sassriver/assets/css/bootstrap.mind4d0.css?ver=6.9">
+  <link rel="stylesheet" href="../assets/themes/sassriver/assets/css/sassriver-core8daf.css?ver=1.1.4">
+  <style>
+    :root {
+      --sr-clr-pr-1: #00A86B;
+      --sr-font-1: "Urbanist", Arial, sans-serif;
+    }
+
+    body {
+      min-height: 100vh;
+      background: #f8f9fc;
+      color: #08080a;
+      font-family: var(--sr-font-1);
+    }
+
+    .signup-header {
+      width: 100%;
+      padding: 24px 20px;
+      background: #fff;
+      border-bottom: 1px solid rgba(8, 8, 10, 0.08);
+    }
+
+    .signup-header-inner,
+    .signup-main {
+      width: min(1120px, calc(100% - 40px));
+      margin: 0 auto;
+    }
+
+    .signup-logo img {
+      width: 142px;
+      height: auto;
+      display: block;
+    }
+
+    .signup-main {
+      min-height: calc(100vh - 92px);
+      display: grid;
+      grid-template-columns: minmax(0, 0.9fr) minmax(320px, 420px);
+      gap: 48px;
+      align-items: center;
+      padding: 64px 0;
+    }
+
+    .signup-copy .eyebrow {
+      color: var(--sr-clr-pr-1);
+      font-size: 16px;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+
+    .signup-copy h1 {
+      font-size: 54px;
+      line-height: 1.05;
+      margin: 0 0 18px;
+      letter-spacing: 0;
+    }
+
+    .signup-copy p {
+      max-width: 560px;
+      color: rgba(8, 8, 10, 0.68);
+      font-size: 18px;
+      line-height: 1.6;
+      margin: 0;
+    }
+
+    .signup-panel {
+      background: #fff;
+      border: 1px solid rgba(8, 8, 10, 0.08);
+      border-radius: 8px;
+      padding: 32px;
+      box-shadow: 0 28px 80px rgba(8, 8, 10, 0.08);
+    }
+
+    .signup-panel h2 {
+      font-size: 28px;
+      line-height: 1.2;
+      margin: 0 0 8px;
+    }
+
+    .signup-plan {
+      color: rgba(8, 8, 10, 0.62);
+      font-size: 15px;
+      margin-bottom: 24px;
+    }
+
+    .signup-field {
+      display: grid;
+      gap: 8px;
+      margin-bottom: 18px;
+    }
+
+    .signup-field label {
+      color: #181d27;
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    .signup-field input {
+      width: 100%;
+      height: 52px;
+      border: 1px solid rgba(8, 8, 10, 0.14);
+      border-radius: 6px;
+      padding: 0 16px;
+      color: #08080a;
+      font-size: 16px;
+      background: #fff;
+    }
+
+    .signup-field input:focus {
+      border-color: var(--sr-clr-pr-1);
+      box-shadow: 0 0 0 4px rgba(0, 168, 107, 0.12);
+    }
+
+    .signup-button {
+      width: 100%;
+      height: 54px;
+      border-radius: 6px;
+      background: var(--sr-clr-pr-1);
+      color: #fff;
+      font-size: 16px;
+      font-weight: 800;
+      cursor: pointer;
+      transition: transform 0.2s ease, background 0.2s ease;
+    }
+
+    .signup-button:hover {
+      background: #008f5c;
+      transform: translateY(-1px);
+    }
+
+    .signup-status {
+      min-height: 24px;
+      margin-top: 14px;
+      color: #008f5c;
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    @media (max-width: 860px) {
+      .signup-main {
+        grid-template-columns: 1fr;
+        gap: 32px;
+        padding: 42px 0;
+      }
+
+      .signup-copy h1 {
+        font-size: 40px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="signup-header">
+    <div class="signup-header-inner">
+      <a class="signup-logo" href="../index.html" aria-label="Attendo home">
+        <img src="../assets/Logos/horizoanllogoandnaem.png" alt="Attendo logo">
+      </a>
+    </div>
+  </header>
+
+  <main class="signup-main">
+    <section class="signup-copy">
+      <p class="eyebrow">Free signup</p>
+      <h1>Start with Attendo</h1>
+      <p>Enter your details and our team will use them to set up your free signup request.</p>
+    </section>
+
+    <section class="signup-panel" aria-label="Signup form">
+      <h2>Sign Up Free</h2>
+      <p class="signup-plan" id="selectedPlan">Selected plan: Starter</p>
+
+      <form id="signupForm">
+        <div class="signup-field">
+          <label for="name">Name</label>
+          <input id="name" name="name" type="text" autocomplete="name" required>
+        </div>
+
+        <div class="signup-field">
+          <label for="phone">Phone</label>
+          <input id="phone" name="phone" type="tel" autocomplete="tel" required>
+        </div>
+
+        <div class="signup-field">
+          <label for="email">Email</label>
+          <input id="email" name="email" type="email" autocomplete="email" required>
+        </div>
+
+        <button class="signup-button" type="submit">Sign Up Free</button>
+        <p class="signup-status" id="signupStatus" aria-live="polite"></p>
+      </form>
+    </section>
+  </main>
+
+  <script>
+    const planLabels = {
+      starter: "Starter",
+      extended: "Extended License",
+      enterprise: "Enterprise"
+    };
+
+    const params = new URLSearchParams(window.location.search);
+    const plan = params.get("plan") || "starter";
+    const planLabel = planLabels[plan] || "Starter";
+    document.getElementById("selectedPlan").textContent = `Selected plan: ${planLabel}`;
+
+    document.getElementById("signupForm").addEventListener("submit", async function (event) {
+      event.preventDefault();
+      const fields = new FormData(this);
+      const submitButton = this.querySelector(".signup-button");
+      const status = document.getElementById("signupStatus");
+
+      const formData = {
+        plan: planLabel,
+        name: String(fields.get("name") || "").trim(),
+        phone: String(fields.get("phone") || "").trim(),
+        email: String(fields.get("email") || "").trim()
+      };
+
+      console.log("Signup form data:", formData);
+
+      const message = [
+        "HEYY thank you for Using Our Service",
+        `Plan: ${formData.plan}`,
+        `Name: ${formData.name}`,
+        `Phone: ${formData.phone}`,
+        `Email: ${formData.email}`
+      ].join("\n");
+
+      const notifyUrl = new URL("https://web-notify-backend-api.vercel.app/Dev/Attendo/msg");
+      notifyUrl.searchParams.set("text", message);
+
+      submitButton.disabled = true;
+      status.textContent = "Your account will be active soon and we will share the login details shortly on mail.";
+
+      fetch(notifyUrl.toString(), { method: "GET" }).catch(function (error) {
+        console.error("Signup notify API error:", error);
+      });
+
+      this.reset();
+      submitButton.disabled = false;
+    });
+  </script>
+</body>
+</html>
