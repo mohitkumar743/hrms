@@ -1,0 +1,29 @@
+# Attendo
+
+> Attendo is an all-in-one workforce management and HRMS platform for attendance, leave management, payroll, productivity, and employee operations.
+
+## Website
+
+- [Home](https://attendo.in/): All-in-one workforce management solution overview.
+- [Features](https://attendo.in/feature/): Attendo HRMS and workforce management feature details.
+- [Addons](https://attendo.in/addon/): Optional addons and integrations for Attendo.
+- [Pricing](https://attendo.in/pricing/): Pricing plans for individuals, small teams, and growing organizations.
+- [Sign Up](https://attendo.in/signup/): Sign-up page for Attendo plans.
+- [Contact Us](https://attendo.in/contact-us/): Contact and inquiry page.
+
+## Product Topics
+
+- Workforce management
+- Attendance management
+- Leave management
+- Payroll automation
+- HRMS software
+- Employee productivity
+- Mobile HR app
+- AI-assisted HR support
+
+## Official Links
+
+- Website: https://attendo.in/
+- App: https://app.attendo.in/
+- Demo: https://demo.attendo.in/

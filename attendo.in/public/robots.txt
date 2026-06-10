@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://attendo.in/sitemap.xml
+Host: https://attendo.in
